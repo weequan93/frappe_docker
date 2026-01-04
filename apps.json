@@ -1,0 +1,30 @@
+[
+    {
+        "url": "https://github.com/frappe/erpnext",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/frappe/payments",
+        "branch": "version-15"
+    },
+    {
+        "url": "https://github.com/frappe/hrms",
+        "branch": "version-15"
+    },
+    {
+        "url": "git@github.com:weequan93/ury",
+        "branch": "dev"
+    },
+    {
+        "url": "git@github.com:weequan93/qr_ordering",
+        "branch": "dev"
+    },
+    {
+        "url": "git@github.com:weequan93/customer_wallet",
+        "branch": "dev"
+    },
+    {
+        "url": "git@github.com:weequan93/restaurant_ordering",
+        "branch": "dev"
+    }
+]

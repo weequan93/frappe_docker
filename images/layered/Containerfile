@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.4
 ARG FRAPPE_BRANCH=version-15
 
 FROM frappe/build:${FRAPPE_BRANCH} AS builder
@@ -12,9 +13,17 @@ RUN if [ -n "${APPS_JSON_BASE64}" ]; then \
     mkdir /opt/frappe && echo "${APPS_JSON_BASE64}" | base64 -d > /opt/frappe/apps.json; \
   fi
 
+RUN apt-get update && \
+  apt-get install -y --no-install-recommends openssh-client && \
+  rm -rf /var/lib/apt/lists/*
+
 USER frappe
 
-RUN export APP_INSTALL_ARGS="" && \
+RUN --mount=type=ssh,uid=1000,gid=1000,mode=0600 \
+  mkdir -p /home/frappe/.ssh && \
+  chmod 700 /home/frappe/.ssh && \
+  ssh-keyscan github.com >> /home/frappe/.ssh/known_hosts && \
+  export APP_INSTALL_ARGS="" && \
   if [ -n "${APPS_JSON_BASE64}" ]; then \
     export APP_INSTALL_ARGS="--apps_path=/opt/frappe/apps.json"; \
   fi && \
